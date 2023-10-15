@@ -1,0 +1,9 @@
+1 - Estilo "rogue like"
+2 - Minimo de 10 Fases
+3 - TUDO feito no console
+4 - Lutas contra mobs feitas por turno
+5 - Mapas pre-definidos
+6 - Apos cada luta o jogador escolhe um buff
+7 - UID apresentado vida, ataque e armadura do personagem
+8 - Mapa de tamanho 15x30
+9 - Todo final de mapas de numero divisel por 2 deve ter um boss
