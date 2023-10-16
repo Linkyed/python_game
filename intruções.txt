@@ -1,5 +1,5 @@
 1 - Estilo "rogue like"
-2 - Minimo de 10 Fases
+2 - Minimo de 3 Fases
 3 - TUDO feito no console
 4 - Lutas contra mobs feitas por turno
 5 - Mapas pre-definidos
@@ -7,3 +7,8 @@
 7 - UID apresentado vida, ataque e armadura do personagem
 8 - Mapa de tamanho 15x30
 9 - Todo final de mapas de numero divisel por 2 deve ter um boss
+
+Coisas a se fazer:
+1 - UID simples, mostrando:
+    . Mostrar nome atual do mapa
+    . Mostrar vida, armadura e ataque do player
