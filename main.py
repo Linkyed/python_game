@@ -2,7 +2,7 @@
 import os
 import time
 import classes
-import maps
+from maps_files import maps
 
 # ----------------FUNCTIONS----------------
 
@@ -21,23 +21,21 @@ def interface(game_map, player):
     #Showing the player info below the map
     player.show_info()
 
+#Creating the player 
+player = classes.Player(100, 10, 5, 3) 
 
 # ----------------MAPS----------------
 
-# 1 - Initial Map
-map1 = maps.create_map1()
-
-#Creating the player 
-player = classes.Player(100, 10, 5, 3,  (14, 0)) 
+map_being_played = maps.create_map1(player)
 
 # ----------------MAIN LOOP----------------
 while (True):
     #Showing the nearby units of the players
-    player.show_nearby_units(map1)
+    player.show_nearby_units(map_being_played)
     #Showing all the interface in the console
-    interface(map1, player)
+    interface(map_being_played, player)
     #Waiting the player to move
-    player.move_actions(map1)
+    player.move_actions(map_being_played)
     #Sleep time to prevent duplicated inputs
     time.sleep(0.1)
     #Cleaning the console to show the next frame of the game
