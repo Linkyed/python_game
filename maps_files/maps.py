@@ -1,5 +1,8 @@
 import classes
 import time
+MAP_WIDHT = 35
+MAP_HEIGHT = 20
+
 map_counter = 0
 def load_grid_map(filename: str):
     path = 'maps_files\-'.replace('-', '')
@@ -9,7 +12,6 @@ def load_grid_map(filename: str):
         column_counter = 0
         map_grid = map_file.read().replace('	', '')
         for line in map_grid.split('\n'):
-            print(line)
             for character in line:
                 if (character.lower().strip() == 'p'):
                     player_position = (line_counter, column_counter)
@@ -21,8 +23,8 @@ def load_grid_map(filename: str):
 
 def generate_map_grid(map_object, map_grid: str):
     accumulate = 0
-    for i in range(0, 15):
-        for j in range (0, 15):
+    for i in range(0, MAP_HEIGHT):
+        for j in range (0, MAP_WIDHT):
             map_object.create_units(map_grid[accumulate], i)
             accumulate += 1
     

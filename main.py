@@ -3,6 +3,7 @@ import os
 import time
 import classes
 from maps_files import maps
+import tkinter
 
 # ----------------FUNCTIONS----------------
 
@@ -10,7 +11,7 @@ from maps_files import maps
 def interface(game_map, player):
     #Showing and aligning the title of the map
     name = game_map.name
-    alighment = (31 - len(name))//2
+    alighment = ((maps.MAP_WIDHT*2)+1 - len(name))//2
     tittle = ''
     for c in range (0, alighment):
         tittle = tittle + ' '
@@ -37,7 +38,9 @@ while (True):
     #Waiting the player to move
     player.move_actions(map_being_played)
     #Sleep time to prevent duplicated inputs
-    time.sleep(0.1)
+    time.sleep(0.075)
     #Cleaning the console to show the next frame of the game
+
     os.system('cls')
+        
 
