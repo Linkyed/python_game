@@ -1,12 +1,15 @@
 import keyboard
 from maps_files.maps import MAP_WIDHT
 class Player:
-    def __init__(self, hp: int, armor: int, attack: int, mana: int):
+    def __init__(self, hp: int, armor: int, attack: int, mana: int, magic_power: float):
         self.hp = hp
         self.armor = armor
         self.attack = attack
+        self.magic_power = magic_power
         self.mana = mana
         self.position = (0, 0)
+        self.attack_choice = 1
+        self.reward_choice = 1
     
     #Method to move the player across the map
     def actions(self, game_map):
@@ -54,17 +57,44 @@ class Player:
             if (keyboard.is_pressed('esc')):
                 return 'exit'
             
-    def battle_actions(self, battle_interface):
-        attack_choice = 'Normal Attack'
+    def battle_actions(self, normal_attack, mana_attack):
+        attack_confirmed = False
         while (True):
-            if (keyboard.is_pressed('left') and attack_choice != "Normal Attack"):
-                attack_choice = 'Normal Attack'
-
+            if (keyboard.is_pressed('left')):
+                normal_attack, mana_attack = '-->Normal Attack', 'Mana Attack'
+                self.attack_choice = 1
                 break
-            if (keyboard.is_pressed('Right') and attack_choice != "Mana Attack"):
-                attack_choice = 'Mana Attack'
-
+            if (keyboard.is_pressed('Right')):
+                normal_attack, mana_attack = 'Normal Attack', '-->Mana Attack'
+                self.attack_choice = 2
                 break
+            if (keyboard.is_pressed('enter')):
+                if (self.attack_choice == 2 and self.mana > 0):
+                    self.mana -=1
+                    attack_confirmed = True
+                elif (self.attack_choice == 2  and self.mana == 0):
+                    attack_confirmed = False
+                elif (self.attack_choice == 1):
+                    attack_confirmed = True
+                break
+        return normal_attack, mana_attack, attack_confirmed, self.attack_choice
+    
+    def reward_choice_actions(self):
+        reward_confirmed = False
+        while (True):
+            if (keyboard.is_pressed('left')):
+                if (self.reward_choice > 1):
+                    self.reward_choice -= 1
+                break
+            if (keyboard.is_pressed('right')):
+                if (self.reward_choice < 4):
+                    self.reward_choice += 1
+                break
+            if (keyboard.is_pressed('enter')):
+                reward_confirmed = True
+                break
+        return reward_confirmed
+                
 
     #Method to show the player's neraby map units in a renge of a 3x3 square with the player in the center
     def show_unit_info(self, game_map):
@@ -98,4 +128,4 @@ class Player:
         print('=======================================================================')
 
 
-player = Player(100, 10, 5, 3) 
+player = Player(100, 10, 5, 3, 8) 
