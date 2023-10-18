@@ -38,10 +38,10 @@ def create_map1(player):
     map_1 = classes.Map('Map 1: The Beginning')
     #Fullfiling it with only 'nothing' map units
     map_1_grid, player_position = load_grid_map('map1')
-
-    player.set_position(player_position)
     #Coordinates of all walls and placing them on the map
     generate_map_grid(map_1, map_1_grid)
+    
+    player.set_position(player_position, map_1)
 
 
     return map_1

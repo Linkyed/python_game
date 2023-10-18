@@ -21,6 +21,7 @@ def interface(game_map, player):
     game_map.show_map()
     #Showing the player info below the map
     player.show_info()
+    player.show_unit_info(game_map)
 
 #Creating the player 
 player = classes.Player(100, 10, 5, 3) 
@@ -29,18 +30,20 @@ player = classes.Player(100, 10, 5, 3)
 
 map_being_played = maps.create_map1(player)
 
+loop = 'continue'
 # ----------------MAIN LOOP----------------
-while (True):
+while (loop == 'continue'):
     #Showing the nearby units of the players
-    player.show_nearby_units(map_being_played)
+    #player.show_nearby_units(map_being_played)
     #Showing all the interface in the console
     interface(map_being_played, player)
     #Waiting the player to move
-    player.move_actions(map_being_played)
+    loop = player.actions(map_being_played)
     #Sleep time to prevent duplicated inputs
     time.sleep(0.075)
     #Cleaning the console to show the next frame of the game
 
     os.system('cls')
-        
+    
+print('Thanks for playing! :)')
 
