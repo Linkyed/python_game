@@ -1,5 +1,5 @@
 from player import player
-from maps_files.maps import MAP_WIDHT
+MAP_WIDHT = 35
 import math
 import os
 import time
@@ -13,6 +13,26 @@ class enemy:
         self.armor = armor
         self.mana = mana
 
+def add_combat(dificult_level):
+    enemy_names = ['Skeleton', 'Goblin', 'Bandit']
+    if (dificult_level == 1):
+        hp = random.randint(20, 35)
+        attack = 0
+        armor = 0
+        name_choice = random.randint(0, 2)
+        if (hp >=50):
+            attack = random.randint(5, 10)
+            if (attack >= 8):
+                armor = random.randint(2, 4)
+            else:
+                armor = random.randint(5, 8)
+        else:
+            attack = random.randint(10, 15)
+            if (attack >= 13):
+                armor = random.randint(1, 3)
+            else:
+                armor = random.randint(2, 5)
+        return enemy(enemy_names[name_choice], hp, attack, armor, 0)
 
 def normal_damage_calculator(attack, armor):
     range_of_attack_variance = (attack*1.40 - attack*0.8)//2
@@ -157,13 +177,6 @@ def battle_reward(player):
         time.sleep(0.1)
         os.system('cls')
 
-enemy_1 = enemy('Skeleton', 50, 12, 3, 0)
-
-win = combat(player, enemy_1, normal_attack, mana_attack, '')
-if (win):
-    battle_reward(player)
-else:
-    print('GAME OVER')
 
 
 

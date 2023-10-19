@@ -3,8 +3,8 @@ import os
 import time
 import classes
 from maps_files import maps
-import tkinter
-
+import battle
+from player import player
 # ----------------FUNCTIONS----------------
 
 #Function to show all the interface of the game, tittle, map grid, player info and maybe some other stuff in the future
@@ -24,7 +24,6 @@ def interface(game_map, player):
     player.show_unit_info(game_map)
 
 #Creating the player 
-player = classes.Player(100, 10, 5, 3) 
 
 # ----------------MAPS----------------
 
@@ -32,17 +31,31 @@ map_being_played = maps.create_map1(player)
 
 loop = 'continue'
 # ----------------MAIN LOOP----------------
-while (loop == 'continue'):
-    #Showing the nearby units of the players
-    #player.show_nearby_units(map_being_played)
+while (loop != 'exit'):
+
     #Showing all the interface in the console
     interface(map_being_played, player)
     #Waiting the player to move
     loop = player.actions(map_being_played)
     #Sleep time to prevent duplicated inputs
     time.sleep(0.075)
+    while (loop == 'combat'):
+        os.system('cls')
+        enemy = map_being_played.units[player.position[0]][player.position[1]].enemy
+        win = battle.combat(player, enemy, '-->Normal Attack', 'Mana Attack', '')
+        if (win):
+            battle.battle_reward(player)
+            map_being_played.units[player.position[0]][player.position[1]].content = 'N'
+            map_being_played.units[player.position[0]][player.position[1]].is_combat_unit = False
+            map_being_played.units[player.position[0]][player.position[1]].description = 'All the creatures are dead, nothing to see here'
+            map_being_played.units[player.position[0]][player.position[1]].enemy = None
+            loop = 'continue'
+        else:
+            print('GAME OVER')
+            time.sleep(1)
+            loop = 'exit'
+        time.sleep(0.075)
     #Cleaning the console to show the next frame of the game
-
     os.system('cls')
     
 print('Thanks for playing! :)')

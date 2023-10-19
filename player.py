@@ -1,5 +1,5 @@
 import keyboard
-from maps_files.maps import MAP_WIDHT
+MAP_WIDHT = 35
 class Player:
     def __init__(self, hp: int, armor: int, attack: int, mana: int, magic_power: float):
         self.hp = hp
@@ -10,6 +10,7 @@ class Player:
         self.position = (0, 0)
         self.attack_choice = 1
         self.reward_choice = 1
+        self.inventory  = {'Slot 1': '', 'Slot 2': '', 'Slot 3': ''}
     
     #Method to move the player across the map
     def actions(self, game_map):
@@ -18,7 +19,6 @@ class Player:
             if (keyboard.is_pressed('up')):
                 new_position = (self.position[0] - 1, self.position[1])
                 if (game_map.is_accessible_unit(new_position)):
-                    game_map.units[self.position[0]][self.position[1]].content = 'N'
                     game_map.units[self.position[0]][self.position[1]].player_is_in = False
                     self.position = new_position
                     game_map.units[self.position[0]][self.position[1]].player_is_in = True
@@ -28,7 +28,6 @@ class Player:
             if (keyboard.is_pressed('down')):
                 new_position = (self.position[0] + 1, self.position[1])
                 if (game_map.is_accessible_unit(new_position)):
-                    game_map.units[self.position[0]][self.position[1]].content = 'N'
                     game_map.units[self.position[0]][self.position[1]].player_is_in = False
                     self.position = new_position
                     game_map.units[self.position[0]][self.position[1]].player_is_in = True
@@ -38,7 +37,6 @@ class Player:
             if (keyboard.is_pressed('right')):
                 new_position = (self.position[0], self.position[1] + 1)
                 if (game_map.is_accessible_unit(new_position)):
-                    game_map.units[self.position[0]][self.position[1]].content = 'N'
                     game_map.units[self.position[0]][self.position[1]].player_is_in = False
                     self.position = new_position
                     game_map.units[self.position[0]][self.position[1]].player_is_in = True
@@ -48,12 +46,14 @@ class Player:
             if (keyboard.is_pressed('left')):
                 new_position = (self.position[0], self.position[1] - 1)
                 if (game_map.is_accessible_unit(new_position)):
-                    game_map.units[self.position[0]][self.position[1]].content = 'N'
                     game_map.units[self.position[0]][self.position[1]].player_is_in = False
                     self.position = new_position
                     game_map.units[self.position[0]][self.position[1]].player_is_in = True
                     game_map.open_unit(new_position, True)
                 return 'continue'
+            if (keyboard.is_pressed('enter')):
+                if (game_map.units[self.position[0]][self.position[1]].is_combat_unit):
+                    return 'combat'
             if (keyboard.is_pressed('esc')):
                 return 'exit'
             

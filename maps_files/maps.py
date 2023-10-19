@@ -1,6 +1,7 @@
 MAP_WIDHT = 35
 MAP_HEIGHT = 20
-
+import time
+from battle import add_combat
 class Map_Unit:
     def __init__(self, content, is_open, is_wall, description, player_is_in):
         self.content = content
@@ -8,6 +9,12 @@ class Map_Unit:
         self.is_wall = is_wall
         self.description = description
         self.player_is_in = player_is_in
+        self.is_combat_unit = False
+        self.enemy = None
+    def add_combat(self, combat_level):
+        self.is_combat_unit = True
+        self.enemy = add_combat(1)
+    
 
     
 
@@ -24,8 +31,10 @@ class Map:
         if (self.valid_coordinate(coordinate) == False):
             return False
         elif (self.units[coordinate[0]][coordinate[1]].is_wall):
+            return False 
+        elif (self.units[coordinate[0]][coordinate[1]].content.lower().strip() == 'x'):
             return False
-        elif (self.units[coordinate[0]][coordinate[1]].content.lower().strip() == 'n'):
+        else:
             return True
 
     #Method to open a unit of the map
@@ -52,6 +61,9 @@ class Map:
             unit = Map_Unit('X', False, True, "It's blocked",False) 
         elif (unit_content.lower().strip() == 'p'):
             unit = Map_Unit('N', True, False, 'Nothing to see here', True)
+        elif (unit_content.lower().strip() == 'b'):
+            unit = Map_Unit('B', False, False, 'There is some creatures, press *ENTER* to fight them', True)
+            unit.add_combat(1)
         self.units[line].append(unit)
 
     #Method to show the map in console
