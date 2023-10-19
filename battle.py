@@ -60,8 +60,9 @@ normal_attack = '-->Normal Attack'
 mana_attack = 'Mana Attack'
 attack_choise = 'Normal Attack'
 
-def combat(player, enemy, n_attack, m_attack, combat_log):
+def combat(player, enemy, n_attack, m_attack, use_item, combat_log):
     player_win = False
+    enemy_action = False
     while (enemy.hp > 0 and player.hp > 0):
         preview_scene_tittle = 'BATTLE AGAINST A ' + enemy.name.strip().upper()
         alighment = ((MAP_WIDHT*2)+1 - len(preview_scene_tittle))//2
@@ -70,31 +71,56 @@ def combat(player, enemy, n_attack, m_attack, combat_log):
             scene_tittle = scene_tittle + ' '
         scene_tittle = scene_tittle + preview_scene_tittle
         print('=======================================================================')
-        print('Player: HP 100/{}    Attack: {}    Armor: {}    Mana: {}'.format(player.hp, player.attack, player.armor, player.mana))
-        print('{}: HP {}/{}    Attack: {}    Armor: {}   Mana: {}'.format(enemy.name, enemy.max_hp, enemy.hp, enemy.attack, enemy.armor, enemy.mana))
+        print('Player: HP 100/{}    Attack: {}    Armor: {}    Mana: {}    Magic Power: {}'.format(player.hp, player.attack + player.attack_buff, player.armor, player.mana, player.magic_power + player.magic_power_buff))
+        print('{}: HP {}/{}    Attack: {}    Armor: {}'.format(enemy.name, enemy.max_hp, enemy.hp, enemy.attack, enemy.armor))
         print('=======================================================================')
         print('Combat Log: ')
         print(combat_log)
         print('=======================================================================')
-        print('Choose your attack: {}                   {}'.format(n_attack, m_attack))
+        print('Choose your action: {}          {}           {}'.format(n_attack, m_attack, use_item))
         print('=======================================================================')
-        n_attack, m_attack, confirmed_attack, current_choice = player.battle_actions(n_attack, m_attack)
+        n_attack, m_attack, use_item, confirmed_attack, current_choice = player.battle_actions(n_attack, m_attack, use_item)
         if (confirmed_attack):
             if (current_choice == 1):
-                damage, critical = normal_damage_calculator(player.attack, enemy.armor)
+                damage, critical = normal_damage_calculator(player.attack + player.attack_buff, enemy.armor)
                 enemy.hp -= damage
                 if (critical):
                     combat_log = combat_log + ':Player: hit a Critical Hit! Causing *{}* attack damage to the :{}:\n'.format(damage, enemy.name)
                 else:
                     combat_log = combat_log + ':Player: deals *{}* attack damage to the :{}:\n'.format(damage, enemy.name)
+                enemy_action = True
             elif (current_choice == 2):
-                damage, critical = magic_damage_calculator(player.magic_power, enemy.armor)
+                damage, critical = magic_damage_calculator(player.magic_power + player.magic_power_buff, enemy.armor)
                 enemy.hp -= damage
                 if (critical):
                     combat_log = combat_log + ':Player: hit a Critical Hit! Causing *{}* magic damage to the :{}:\n'.format(damage, enemy.name)
                 else:
                     combat_log = combat_log + ':Player: deals *{}* magic damage to the :{}:\n'.format(damage, enemy.name)
-            if (enemy.hp > 0):
+                enemy_action = True
+            elif (current_choice == 3):
+                if(player.inventory_full == False):
+                    os.system('cls')
+                    print('Player does not have item to use!')
+                    time.sleep(1)
+                    enemy_action = False
+                else:
+                    item = player.inventory['Slot 1']
+                    if (item .id == 1):
+                        player.hp += item.hp_restored
+                        if (player.hp > 100):
+                            player.hp = 100
+                        combat_log = combat_log + ':Player: used a {}! Restoring his HP to {}\n'.format(item.name, player.hp)
+                    elif (item.id == 2):
+                        player.attack_buff = item.attack_buff    
+                        combat_log = combat_log + ':Player: used a {}! Buffing his Attack to {}\n'.format(item.name, player.attack + player.attack_buff)
+                    elif (item.id == 3):
+                        player.magic_power_buff = item.magic_buff
+                        combat_log = combat_log + ':Player: used a {}! Buffing his Magic Power to {} \n'.format(item.name, player.magic_power + player.magic_power_buff)
+                    enemy_action = True
+                    player.inventory['Slot 1'] = None
+                    player.inventory_full = False
+                   
+            if (enemy.hp > 0 and enemy_action):
                 damage, critical = normal_damage_calculator(enemy.attack, player.armor)
                 player.hp -= damage
                 if (critical):
@@ -105,7 +131,7 @@ def combat(player, enemy, n_attack, m_attack, combat_log):
                     combat_log = combat_log + ':Player: died, good bye...'
                     player_win = False
                     
-            else:
+            elif (enemy.hp <= 0):
                 combat_log = combat_log + ':{}: has been defeated, congratulations!'.format(enemy.name)
                 player_win = True    
 

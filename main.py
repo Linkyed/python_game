@@ -42,19 +42,26 @@ while (loop != 'exit'):
     while (loop == 'combat'):
         os.system('cls')
         enemy = map_being_played.units[player.position[0]][player.position[1]].enemy
-        win = battle.combat(player, enemy, '-->Normal Attack', 'Mana Attack', '')
+        win = battle.combat(player, enemy, '-->Normal Attack', 'Mana Attack', 'Use Item', '')
         if (win):
             battle.battle_reward(player)
             map_being_played.units[player.position[0]][player.position[1]].content = 'N'
             map_being_played.units[player.position[0]][player.position[1]].is_combat_unit = False
             map_being_played.units[player.position[0]][player.position[1]].description = 'All the creatures are dead, nothing to see here'
             map_being_played.units[player.position[0]][player.position[1]].enemy = None
+            player.reset_buffs()
             loop = 'continue'
         else:
             print('GAME OVER')
             time.sleep(1)
             loop = 'exit'
         time.sleep(0.075)
+    if (loop == 'item'):
+        time.sleep(1)
+        map_being_played.units[player.position[0]][player.position[1]].content = 'N'
+        map_being_played.units[player.position[0]][player.position[1]].is_item_unit = False
+        map_being_played.units[player.position[0]][player.position[1]].description = 'The chest was already open, nothing to see here'
+        map_being_played.units[player.position[0]][player.position[1]].item = None
     #Cleaning the console to show the next frame of the game
     os.system('cls')
     

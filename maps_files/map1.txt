@@ -1,14 +1,14 @@
 X	X	X	-	-	-	-	-	-	-	-	-	-	X	X	X	-	-	-	-	-	-	-	-	-	-	-	-	X	X	X	X	X	X	X
-X	X	X	-	N	N	N	-	-	N	N	N	-	X	X	X	-	N	N	N	B	N	N	N	N	N	N	-	X	X	X	X	X	X	X
+X	X	X	-	I	I	N	-	-	N	N	N	-	X	X	X	-	N	N	N	B	N	N	N	N	N	N	-	X	X	X	X	X	X	X
 X	X	X	-	N	N	N	-	-	N	N	N	-	X	X	X	-	N	N	N	N	N	N	N	N	N	N	-	X	X	X	X	X	X	X
 X	X	X	-	N	N	N	-	-	N	N	N	-	X	X	X	-	N	N	N	N	N	N	N	N	N	N	-	X	X	X	X	X	X	X
 X	X	X	-	N	N	N	N	N	N	N	N	-	X	X	X	-	-	-	-	N	-	-	-	-	-	-	-	-	-	-	-	-	-	-
 X	X	X	-	-	-	-	-	-	-	-	N	-	X	X	X	X	-	-	-	N	-	-	-	-	-	N	N	N	N	N	N	N	N	N
 X	X	X	X	X	X	X	X	X	X	-	N	-	X	X	X	X	-	N	N	N	B	N	N	-	-	N	N	N	-	-	-	N	-	-
 -	-	-	-	-	-	-	-	X	X	-	N	-	X	X	X	X	-	N	N	N	N	N	N	-	-	N	N	N	-	X	-	N	-	X
-N	N	B	N	N	N	N	-	-	-	-	N	-	-	-	-	-	-	N	N	N	N	N	N	N	N	N	N	N	-	X	-	N	-	X
+N	N	B	N	N	N	I	-	-	-	-	N	-	-	-	-	-	-	N	N	N	N	N	N	N	N	N	N	N	-	X	-	N	-	X
 N	N	N	N	N	N	N	N	N	N	N	B	N	N	N	N	N	N	N	N	N	N	N	N	-	-	-	-	-	-	X	-	N	-	X
-N	N	N	N	N	N	N	-	-	-	-	N	-	-	-	-	-	-	N	N	N	N	N	N	-	X	X	X	X	X	-	-	N	-	-
+I	N	N	N	N	N	N	-	-	-	-	N	-	-	-	-	-	-	N	N	N	N	N	N	-	X	X	X	X	X	-	-	N	-	-
 N	N	N	N	N	N	B	-	X	X	-	N	-	X	X	X	X	-	N	N	N	N	N	N	-	X	X	X	X	X	-	N	N	N	-
 N	-	-	-	-	-	-	-	X	X	-	N	-	X	X	X	X	-	-	-	-	-	-	-	-	X	X	X	X	X	-	N	N	N	-
 N	-	X	X	X	X	X	X	X	X	-	N	-	-	-	-	-	-	-	X	X	X	X	X	X	X	X	X	X	X	-	N	N	N	-

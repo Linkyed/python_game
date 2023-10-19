@@ -2,6 +2,7 @@ MAP_WIDHT = 35
 MAP_HEIGHT = 20
 import time
 from battle import add_combat
+from items import Item
 class Map_Unit:
     def __init__(self, content, is_open, is_wall, description, player_is_in):
         self.content = content
@@ -11,11 +12,14 @@ class Map_Unit:
         self.player_is_in = player_is_in
         self.is_combat_unit = False
         self.enemy = None
+        self.is_item_unit = False
+        self.item = None
     def add_combat(self, combat_level):
         self.is_combat_unit = True
         self.enemy = add_combat(1)
-    
-
+    def add_item(self):
+        self.is_item_unit = True
+        self.item = Item.create_item()
     
 
 #Class to create an map object
@@ -62,8 +66,11 @@ class Map:
         elif (unit_content.lower().strip() == 'p'):
             unit = Map_Unit('N', True, False, 'Nothing to see here', True)
         elif (unit_content.lower().strip() == 'b'):
-            unit = Map_Unit('B', False, False, 'There is some creatures, press *ENTER* to fight them', True)
+            unit = Map_Unit('B', False, False, 'There is some creatures, press *ENTER* to fight them', False)
             unit.add_combat(1)
+        elif (unit_content.lower().strip() == 'i'):
+            unit = Map_Unit('I', False, False, 'There is chest here, press *ENTER* to open it', False)
+            unit.add_item()
         self.units[line].append(unit)
 
     #Method to show the map in console
