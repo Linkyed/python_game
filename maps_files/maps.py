@@ -14,9 +14,14 @@ class Map_Unit:
         self.enemy = None
         self.is_item_unit = False
         self.item = None
+        self.is_runic_unit = False
+        self.is_healing_unit = False
+        self.is_boss_unit = False
     def add_combat(self, combat_level):
         self.is_combat_unit = True
         self.enemy = add_combat(1)
+        if (self.is_boss_unit):
+            self.enemy = add_combat(2)
     def add_item(self):
         self.is_item_unit = True
         self.item = Item.create_item()
@@ -71,6 +76,14 @@ class Map:
         elif (unit_content.lower().strip() == 'i'):
             unit = Map_Unit('I', False, False, 'There is chest here, press *ENTER* to open it', False)
             unit.add_item()
+        elif (unit_content.lower().strip() == 'h'):
+            unit = Map_Unit('H', False, False, 'There is beautiful water fountain here, press *ENTER* to drink it', False)
+            unit.is_healing_unit = True
+        elif (unit_content.lower().strip() == 's'):
+            unit = Map_Unit('S', False, False, 'There is a really big creature, press *ENTER* to fight it', False)
+            unit.is_boss_unit = True
+            unit.add_combat(1)
+            
         self.units[line].append(unit)
 
     #Method to show the map in console

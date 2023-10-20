@@ -62,6 +62,11 @@ while (loop != 'exit'):
         map_being_played.units[player.position[0]][player.position[1]].is_item_unit = False
         map_being_played.units[player.position[0]][player.position[1]].description = 'The chest was already open, nothing to see here'
         map_being_played.units[player.position[0]][player.position[1]].item = None
+    if (loop == 'healing'):
+        map_being_played.units[player.position[0]][player.position[1]].content = 'N'
+        map_being_played.units[player.position[0]][player.position[1]].is_healing_unit = False
+        map_being_played.units[player.position[0]][player.position[1]].description = 'The water foutarin is over, nothing to see here'
+    
     #Cleaning the console to show the next frame of the game
     os.system('cls')
     

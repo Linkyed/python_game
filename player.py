@@ -72,6 +72,12 @@ class Player:
                         print('Your inventory is full! Use a item to get a free space')
                         time.sleep(1)
                         return 'continue'
+                elif (game_map.units[self.position[0]][self.position[1]].is_healing_unit):
+                    healing_amount = 100 - self.hp
+                    self.hp = 100
+                    print("Player drinks the water and regenerate {} HP!".format(healing_amount))
+                    time.sleep(1)
+                    return 'healing'
             if (keyboard.is_pressed('esc')):
                 return 'exit'
             

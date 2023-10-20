@@ -33,6 +33,23 @@ def add_combat(dificult_level):
             else:
                 armor = random.randint(2, 5)
         return enemy(enemy_names[name_choice], hp, attack, armor, 0)
+    if (dificult_level == 2):
+        hp = random.randint(200, 250)
+        attack = 0
+        armor = 0
+        if (hp >=225):
+            attack = random.randint(15, 19)
+            if (attack >= 8):
+                armor = random.randint(1, 2)
+            else:
+                armor = random.randint(3, 4)
+        else:
+            attack = random.randint(20, 25)
+            if (attack >= 13):
+                armor = 1
+            else:
+                armor = random.randint(3, 6)
+        return enemy("Skeleton King", hp, attack, armor, 0)
 
 def normal_damage_calculator(attack, armor):
     range_of_attack_variance = (attack*1.40 - attack*0.8)//2
